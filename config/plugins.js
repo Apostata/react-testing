@@ -12,7 +12,7 @@ module.exports = [
     chunkFilename: './css/[name].css',
   }),
   new HtmlWebpackPlugin({ 
-    title: 'Teste Meli',
+    title: 'Curso de testes com react',
     template: './index.html',
     inject: 'body'
   })

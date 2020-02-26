@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 
 const App = props => {
-  
+  const [counterState, setCounterState] =  useState(0);
   return (
-    <h1>{oples}</h1>
+    <div className="counter-app" data-test="app-component">
+      <h1 data-test="counter-display">O contador está em {/*counterState*/}</h1>
+      <button data-test="increment-button" onClick={()=>{/*setCounterState(counterState + 1)*/}}>Adicionar ao contador</button>
+    </div>
   );
 }
 

@@ -37,4 +37,18 @@ module.exports ={
         "@babel/plugin-proposal-numeric-separator",
         "@babel/plugin-proposal-throw-expressions",
     ],
+
+    env: {
+        production: {
+            plugins: [
+                [
+                    "react-remove-properties", {
+                        properties: [
+                            "data-test"
+                        ]
+                    }
+                ]
+            ]
+        }
+    }
 };
