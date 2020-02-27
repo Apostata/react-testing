@@ -1,13 +1,11 @@
 import React from 'react';
-import Enzyme, { shallow, ShallowWrapper } from 'enzyme';
-import EnzymeAdapter from 'enzyme-adapter-react-16';
-
+import { shallow } from 'enzyme';
 import Congrats from './Congrats';
-import { findTestAttr } from '../../specs/testUtils'
+import { findTestAttr, checkProp } from '../../specs/testUtils';
 
-// const path = process.env.COMPONENTS_PATH;
 
-Enzyme.configure({ adapter: new EnzymeAdapter()});
+const defaultProps = { success: false};
+
 
 /**
  * Factory function to setup initial that returns ShallowWrapper for Congrats component
@@ -16,19 +14,20 @@ Enzyme.configure({ adapter: new EnzymeAdapter()});
  * @returns {ShallowWrapper}
  */
 const setup = (props={}) =>{
-    const wrapper = shallow(<Congrats {...props} />)
+    const setupProps = {...defaultProps, ...props}
+    const wrapper = shallow(<Congrats {...setupProps} />)
     return wrapper;
 };
 
 describe('Congrats Component', () => {
     it('Should render without error', ()=>{
-        const wrapper = setup();
+        const wrapper = setup({...defaultProps});
         const node = findTestAttr(wrapper, 'congrats-component');
         expect(node.length).toBe(1);
     });
 
     it('Shouldn\'t render text when success prop is false', ()=>{
-        const wrapper = setup({success: false});
+        const wrapper = setup({...defaultProps});
         const node = findTestAttr(wrapper, 'congrats-component');
         expect(node.text()).toBe('');
     });
@@ -37,5 +36,10 @@ describe('Congrats Component', () => {
         const wrapper = setup({success:true});
         const node = findTestAttr(wrapper, 'congrats-message');
         expect(node.length).not.toBe(0);
+    });
+
+    it('Shouldn\'t throw warning with expected props', ()=>{
+        const givenProps = {...defaultProps};
+        checkProp(Congrats, givenProps);
     });
 });

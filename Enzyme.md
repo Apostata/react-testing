@@ -72,7 +72,18 @@ it('Runs without error', ()=>{
 ...
 ````
 
-## metodo state()
+## metodos state() e setState()
+State() pega o stado atual
+**Nota: apenas para componentes de classe**
+````
+it('counter start at 0', () => {
+   const wrapper = shallow(<App/>);
+   wrapper.SE
+   const initialCounter = wrapper.state('counter');
+   expect(initialCounter).toBe(0);
+ });  
+````
+
 
 ### Removendo attributos data-test para produção
 
@@ -97,5 +108,36 @@ env: {
 ...
 ````
 
+### Testando propriedades (props)
+`npm i --save prop-types`
+`npm i -D check-prop-types`
+
+no componente importar checkPropTypes de check-prop-tyes
+
+a função checkPropTypes recebe:
+1. as prop-types do componente
+2. as propriedades recebidas pelo componente
+3. a localização: props
+4. nome do componente
+
+
+````
+import checkPropTypes from 'check-prop-types'
+...
+
+export const checkProp = (component, props) =>{
+    const propError = checkPropTypes(
+        component.propTypes, 
+        props,
+        'props',
+        component.name
+    );
+    
+    expect(propError).not.toBeUndefined();
+}
+````
+
 ## Mount 
 Renderiza o componenet e seus filhos
+
+
