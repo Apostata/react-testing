@@ -1,11 +1,11 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app_index';
+import AppIndex from './app_index';
 
 
-const app = (
-    <App />
+const App = props => (
+    <AppIndex />
 );
 
 ReactDOM.render(
