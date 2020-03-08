@@ -1,8 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { findTestAttr } from '../../specs/testUtils';
+import { findTestAttr, storeFactory } from '../../specs/testUtils';
 
 import Input from './Input';
+
+
 
 /**
  * Factory function to return a ShallowWrapper for the Input component
@@ -11,7 +13,8 @@ import Input from './Input';
  * @returns {ShallowWrapper}
  */
 const setup = (initialState={}) =>{
-    const wrapper = shallow(<Input {...initialState}/>);
+    const store = storeFactory(initialState);
+    const wrapper = shallow(<Input store={store}/>);
     console.log(wrapper.debug());
 };
 

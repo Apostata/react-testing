@@ -17,4 +17,3 @@ it('Runs without error', ()=>{
 
 ## Snapshot Test
 Congela um componente no determinado intervalo de tempo. Não será usado no curso
-

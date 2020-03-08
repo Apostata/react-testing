@@ -141,3 +141,29 @@ export const checkProp = (component, props) =>{
 Renderiza o componenet e seus filhos
 
 
+## Testando states e componentes conectados
+
+### Criando store para testes
+Importar rootReducer no componente
+
+criando uma factory para o criar a store para os testes
+
+````
+import rootReducer from '../store/reducers';
+import { createStore } from 'redux';
+
+export const storeFactory = (initialState) =>{
+   return createStore(rootReducer, initialState)
+};
+````
+
+No setup do componente de teste
+
+````
+const setup = (initialState={}) =>{
+    const store = storeFactory(initialState);
+    const wrapper = shallow(<Input store={store}/>);
+    console.log(wrapper.debug());
+};
+````
+
