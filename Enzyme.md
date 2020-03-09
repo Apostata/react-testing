@@ -137,6 +137,8 @@ export const checkProp = (component, props) =>{
 }
 ````
 
+
+
 ## Mount 
 Renderiza o componenet e seus filhos
 
@@ -167,3 +169,32 @@ const setup = (initialState={}) =>{
 };
 ````
 
+vai retornar um componente de alta ordem:
+````
+<ContextProvider value={{...}}>
+    <Input store={{...}} dispatch={[Function: dispatch]} />
+</ContextProvider>
+````
+
+### metodo dive() para testar alterações no state passando store para props
+````
+const setup = (initialState={}) =>{
+    const store = storeFactory(initialState);
+    const wrapper = shallow(<Input store={store}/>).dive();
+    console.log(wrapper.debug());
+};
+````
+
+vai retornar o componente mas não o que há nele:
+````
+<Input store={{...}} dispatch={[Function: dispatch]} />
+````
+
+para retornar o que há nele temos que ir mais fundo:
+````
+const setup = (initialState={}) =>{
+    const store = storeFactory(initialState);
+    const wrapper = shallow(<Input store={store}/>).dive().dive();
+    console.log(wrapper.debug());
+};
+````

@@ -14,38 +14,56 @@ import Input from './Input';
  */
 const setup = (initialState={}) =>{
     const store = storeFactory(initialState);
-    const wrapper = shallow(<Input store={store}/>);
-    console.log(wrapper.debug());
+    const wrapper = shallow(<Input store={store}/>).dive().dive();
+    return wrapper;
 };
 
-setup();
 
 describe('Input Component', ()=>{
     describe('render', () => {
         context('When word has not been guessed', () => {
-
-            it('Should renders component without error', ()=>{
-
+            let wrapper;
+            beforeEach(() => {
+                const initialState = { success: false };
+                wrapper = setup(initialState);
             });
-            it('Should renders the input box', ()=>{
+         
+            it('Should renders component without erros', ()=>{
+                const component = findTestAttr(wrapper, 'input-component');
+                expect(component.length).toBe(1);
+            });
 
+            it('Should renders the input box', ()=>{
+                const component = findTestAttr(wrapper, 'input-box');
+                expect(component.length).toBe(1);
             });
             
             it('Should renders the submit button', ()=>{
-
+                const component = findTestAttr(wrapper, 'submit-button');
+                expect(component.length).toBe(1);
             });
         });
 
         context('When word has been guessed', () => {
-            it('Should renders component without error', ()=>{
-
+            let wrapper;
+            beforeEach(() => {
+                const initialState = { success: true };
+                wrapper = setup(initialState);
             });
-            it('Should not renders the input box', ()=>{
 
+            it('Should renders component without erros', ()=>{
+                const component = findTestAttr(wrapper, 'input-component');
+                expect(component.length).toBe(1);
+            });
+
+            it('Should not renders the input box', ()=>{
+                const component = findTestAttr(wrapper, 'input-box');
+                expect(component.length).toBe(0);
             });
             
-            it('Should renders the submit button', ()=>{
-
+            it('Should not renders the submit button', ()=>{
+                const component = findTestAttr(wrapper, 'submit-button');
+                expect(component.length).toBe(0);
             });
         });
     });
@@ -53,4 +71,4 @@ describe('Input Component', ()=>{
     describe('update state', () => {
 
     });
-})
+});
