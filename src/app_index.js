@@ -1,11 +1,12 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import Store from './store/configure.store';
+import { ConfigSuccessStore } from './store/success'
+// import { Provider } from 'react-redux';
+// import Store from './store/configure.store';
 
 const path = process.env.COMPONENTS_PATH;
 import AppH from './with-hooks/App';
 import AppC from './with-class/App';
-// path === './src/with-class' ? ;
+path === './src/with-class' ? null : ConfigSuccessStore();
 
 const App = props =>{
     return(
