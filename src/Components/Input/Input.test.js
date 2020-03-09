@@ -1,10 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { findTestAttr, storeFactory } from '../../specs/testUtils';
+import { findTestAttr } from '../../specs/testUtils';
 import { ConfigSuccessStore } from '../../store/success';
-import { useStore } from '../../store/configure.store';
 import Input from './Input';
-
 
 
 /**
@@ -14,16 +12,8 @@ import Input from './Input';
  * @returns {ShallowWrapper}
  */
 
-
-
-
-const Provider = ()=>{
-    const [globalstate, dispatch] = useStore(true);
-    return <Input/>
-};
-
 const setup = () =>{
-    const wrapper = shallow(<Provider/>).dive();
+    const wrapper = shallow(<Input/>);
     return wrapper;
 };
 
