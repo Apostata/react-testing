@@ -12,7 +12,7 @@ import { middlewares } from '../store/configure.store'
  */
 export const storeFactory = (initialState) =>{
     const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
-    return createStoreWithMiddleware(rootReducer);
+    return createStoreWithMiddleware(rootReducer,initialState);
    //return createStore(rootReducer, initialState)
 };
 
