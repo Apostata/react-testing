@@ -1,9 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { findTestAttr, storeFactory } from '../../specs/testUtils';
-
+import { findTestAttr } from '../../specs/testUtils';
+import { ConfigSuccessStore } from '../../store/success.store';
 import Input from './Input';
-
 
 
 /**
@@ -12,9 +11,9 @@ import Input from './Input';
  * @param {object} initialState
  * @returns {ShallowWrapper}
  */
-const setup = (initialState={}) =>{
-    const store = storeFactory(initialState);
-    const wrapper = shallow(<Input store={store}/>).dive().dive();
+
+const setup = () =>{
+    const wrapper = shallow(<Input/>);
     return wrapper;
 };
 
@@ -24,8 +23,8 @@ describe('Input Component', ()=>{
         context('When word has not been guessed', () => {
             let wrapper;
             beforeEach(() => {
-                const initialState = { success: false };
-                wrapper = setup(initialState);
+                ConfigSuccessStore(false);
+                wrapper = setup();
             });
          
             it('Should renders component without erros', ()=>{
@@ -47,8 +46,8 @@ describe('Input Component', ()=>{
         context('When word has been guessed', () => {
             let wrapper;
             beforeEach(() => {
-                const initialState = { success: true };
-                wrapper = setup(initialState);
+                ConfigSuccessStore(true);
+                wrapper = setup();
             });
 
             it('Should renders component without erros', ()=>{
