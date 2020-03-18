@@ -1,5 +1,5 @@
 import React from 'react';
-import App from './App';
+import App, { App as UnconnectApp } from './App';
 import { shallow } from 'enzyme';
 import { storeFactory, findTestAttr } from '../specs/testUtils'
 
@@ -21,14 +21,14 @@ describe('App component', ()=>{
             expect(element.length).toBe(1);
         });
 
-        it('Should render Input component em success is false', ()=>{
+        it('Should render Input component when success is false', ()=>{
             initialState = { success: false }
             wrapper = setup(initialState).dive().dive();
             const element = findTestAttr(wrapper,'app-input-component');
             expect(element.length).toBe(1);
         });
 
-        it('Should render Congrats component em success is true', ()=>{
+        it('Should render Congrats component when success is true', ()=>{
             initialState = { success: true }
             wrapper = setup(initialState).dive().dive();
             const element = findTestAttr(wrapper,'app-congrats-component');
@@ -66,5 +66,19 @@ describe('App component', ()=>{
         })
     });
 
+    context('LyfeCycles', ()=>{
+        it('Should run getSecretWord action on componentDidMount', ()=>{
+            
+            const getSecretWordMock = jest.fn();
+            const props = {
+                guessedWords: [],
+                getSecretWord : getSecretWordMock
+            };
+            const wrapper = shallow(<UnconnectApp {...props}/>);
+            wrapper.instance().componentDidMount();
+            const getSecretWordCalls = getSecretWordMock.mock.calls.length;
+            expect(getSecretWordCalls).toBe(1);
+        })
+    });
 
 })

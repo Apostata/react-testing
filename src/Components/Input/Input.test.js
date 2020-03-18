@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { findTestAttr, storeFactory } from '../../specs/testUtils';
-import Input from './Input';
+import Input, {Input as UnconnectedInput } from './Input';
 
 
 /**
@@ -81,4 +81,32 @@ describe('Input Component', ()=>{
             expect(guessWordProp).toBeInstanceOf(Function);
         })
     });
+
+    describe('Actions calls and state changes', ()=>{
+        let guessWordMock, props;
+        const guessedWord = 'train';
+
+        beforeEach(()=>{
+            guessWordMock = jest.fn();
+            props ={
+                guessWord : guessWordMock
+            };
+            const wrapper = shallow(<UnconnectedInput {...props}/>);
+            wrapper.setState({currentGuess: guessedWord});
+
+            findTestAttr(wrapper, 'submit-button').simulate('click', { preventDefault(){} });
+        });
+
+
+        it('Should call guessWord action when submit button is clicked', ()=>{            
+            const guessWordMockCalls = guessWordMock.mock.calls.length;
+            expect(guessWordMockCalls).toBe(1);
+        });
+
+        it('Should call guessWord action when submit button is with input value as argument', ()=>{
+            const guessWordMockCalls = guessWordMock.mock.calls[0][0];
+            expect(guessWordMockCalls).toBe(guessedWord);
+        })
+        
+    })
 });

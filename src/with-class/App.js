@@ -6,8 +6,12 @@ import Input from '../Components/Input/Input';
 import Congrats from '../Components/Congrats/Congrats';
 import GuessedWords from '../Components/GuessedWords/GuessedWords';
 import Styles from './App.scss';
-class App extends Component{
- 
+export class App extends Component{
+  componentDidMount(){
+    const { getSecretWord } = this.props;
+    getSecretWord();
+  }
+
   render(){
     const {success, guessedWords} = this.props;
     return  (
