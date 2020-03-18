@@ -1,4 +1,4 @@
-import { actionTypes } from "../../actionTypes";
+import { actionTypes } from "../actionTypes";
 import { correctGuess } from './success.actions';
 
 describe('Success redux action', ()=>{

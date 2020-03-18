@@ -198,3 +198,9 @@ const setup = (initialState={}) =>{
     console.log(wrapper.debug());
 };
 ````
+
+### metodo instance()
+Retorna o component react.
+
+#### instance().props
+Acessa as props do componente 

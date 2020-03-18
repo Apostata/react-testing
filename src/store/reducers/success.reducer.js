@@ -1,4 +1,4 @@
-import { actionTypes } from '../../actionTypes'
+import { actionTypes } from '../actionTypes';
 /**
  * @function successReducer
  * @param {array} state - Array of guessed words

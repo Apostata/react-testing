@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { findTestAttr } from '../../specs/testUtils';
-import { ConfigSuccessStore } from '../../store/success.store';
+import { findTestAttr, storeFactory } from '../../specs/testUtils';
 import Input from './Input';
 
 
@@ -12,8 +11,9 @@ import Input from './Input';
  * @returns {ShallowWrapper}
  */
 
-const setup = () =>{
-    const wrapper = shallow(<Input/>);
+const setup = (initialState) =>{
+    const store = storeFactory(initialState)
+    const wrapper = shallow(<Input store={store}/>).dive().dive();
     return wrapper;
 };
 
@@ -23,8 +23,8 @@ describe('Input Component', ()=>{
         context('When word has not been guessed', () => {
             let wrapper;
             beforeEach(() => {
-                ConfigSuccessStore(false);
-                wrapper = setup();
+                const initialState = { success: false };
+                wrapper = setup(initialState);
             });
          
             it('Should renders component without erros', ()=>{
@@ -46,8 +46,8 @@ describe('Input Component', ()=>{
         context('When word has been guessed', () => {
             let wrapper;
             beforeEach(() => {
-                ConfigSuccessStore(true);
-                wrapper = setup();
+                const initialState = { success: true };
+                wrapper = setup(initialState);
             });
 
             it('Should renders component without erros', ()=>{
@@ -67,7 +67,18 @@ describe('Input Component', ()=>{
         });
     });
 
-    describe('update state', () => {
+    describe('Redux props', () => {
+        it('Should have success state as props', ()=>{
+            const successState = true;
+            const wrapper = setup({success: successState});
+            const successProp = wrapper.instance().props.success;
+            expect(successProp).toBe(successState);
+        });
 
+        it('Should have guessWord action as props', ()=>{
+            const wrapper = setup();
+            const guessWordProp = wrapper.instance().props.guessWord;
+            expect(guessWordProp).toBeInstanceOf(Function);
+        })
     });
 });
