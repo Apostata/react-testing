@@ -1,66 +1,28 @@
-import React, { Component }from 'react';
-import { connect } from 'react-redux';
-import { guessWord } from '../../store/actions/guessWord.action';
-import Styles from './Input.scss';
-export class Input extends Component {
-    state = {
-        currentGuess: null
-    };
+import React from 'react';
+import PropTypes from 'prop-types';
 
-    changeIput(e){
-        this.setState({
-            currentGuess: e.target.value
-        });
-    }
+export const Input = props =>{
+    const [currentGuess, setCurrentGuess] = React.useState('');
 
-    submitGuess(e){
-        const { currentGuess } = this.state;
-        const { guessWord } = this.props;
-        e.preventDefault();
-        if(currentGuess && currentGuess.length > 0) guessWord(currentGuess);
-        this.setState({
-            currentGuess: ''
-        });
-    }
-
-
-    render(){
-        const { success } = this.props;
-        const {currentGuess} = this.state;
-
-        let toRender = success ? null : 
-            <form 
-                className={[Styles.neu_container, Styles.form_inline].join(" ")}
-                data-test="guess-form" onSubmit={(e)=>this.submitGuess(e)}
-                >
-                <input
-                    type="text"
-                    data-test="input-box" 
-                    placeholder="Adivinhe a palavra certa"
-                    value={!currentGuess? '': currentGuess }
-                    onChange={(e)=>this.changeIput(e)}
-                    className={[Styles.neu_container, Styles.iverted, Styles.ltt_margin].join(" ")}
-                />
-                <button type="submit" data-test="submit-button">
-                    Enviar
-                </button>
-            </form>;
-
-        return (
-            <div data-test="input-component">
-                { toRender }
-            </div>
-        );
-    }
-}
-
-const mapStateToProps = ({ success }) =>{
-    return { success };
+    return (
+        <form 
+            data-test="input-component"
+            className="form-inline"
+            placeholder="Adivinhe a palavra secreta!"
+        >
+            <input 
+                type='text'
+                data-test="input-field" 
+                value={currentGuess}
+                onChange={(e)=>{setCurrentGuess(e.target.value)}}
+            />
+            <button type="submit" data-test="input-submit">Adivinhar</button>
+        </form>
+    )
 };
-const mapDispatchToProps = dispatch =>{
-    return {
-        guessWord: (word) => dispatch(guessWord(word))
-    };
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Input);
+Input.propTypes = {
+    secretWord: PropTypes.string.isRequired
+};
+
+export default Input;

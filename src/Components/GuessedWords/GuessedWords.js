@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Styles from './GuessedWords.scss';
 
-const GuessedWords = (props) => {
+export const GuessedWords = (props) => {
     const { guessedWords } = props;
-
     const renderGuessedWord = (guessedWordsArr) =>{
         return guessedWordsArr.map((guessedWord, idx) => {
             return(
-                <tr key={idx} data-test="guessed-word">
-                    <td className={[Styles.neu_container, Styles.iverted, Styles.ltt_margin].join(" ")}>{idx + 1}</td>
+                <tr key="idx" data-test="guessed-word">
                     <td className={[Styles.neu_container, Styles.iverted, Styles.ltt_margin].join(" ")}>{guessedWord.guessedWord}</td>
                     <td className={[Styles.neu_container, Styles.iverted, Styles.ltt_margin].join(" ")}>{guessedWord.letterMatchCount}</td>
                 </tr>
@@ -23,7 +21,6 @@ const GuessedWords = (props) => {
                 <table data-test="guessed-words" className={[Styles.neu_container, Styles.ltt_padding, Styles.no_margin].join(" ")}>
                     <thead>
                         <tr>
-                            <td className={[Styles.ltt_margin].join(" ")}>#</td>
                             <td className={[Styles.ltt_margin].join(" ")}>Palavra</td>
                             <td className={[Styles.ltt_margin].join(" ")}>Letras certas</td>
                         </tr>

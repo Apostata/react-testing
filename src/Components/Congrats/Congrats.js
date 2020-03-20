@@ -1,9 +1,6 @@
-import React, { Fragment as F} from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Styles from './Congrats.scss';
-import { clearGuesses } from '../../store/actions/guessWord.action';
-import { getSecretWord } from '../../store/actions/secretWord.action';
 /**
  * Functional component that returns congratulations message
  * @function
@@ -12,16 +9,11 @@ import { getSecretWord } from '../../store/actions/secretWord.action';
  */
 
 export const Congrats = (props) => {
-    const { success, secretWord, clearGuesses } = props;
+    const { success } = props;
     return(
         <div className={[Styles.neu_container,Styles.greenBG].join(" ")} data-test="congrats-component">
             { success ?
-                <F>
-                    <span data-test="congrats-message">Parabéns você descobriu a palavra secreta! 
-                        <b data-test="secret-word">{secretWord}</b>!
-                    </span>
-                    <button type="button" data-test="play-again" onClick={()=>clearGuesses()}>Jogar novamente</button>
-                </F>:
+                <span data-test="congrats-message">Parabéns você descobriu a palavra secreta!</span> :
                 ''
             }
         </div>
@@ -29,17 +21,7 @@ export const Congrats = (props) => {
 };
 
 Congrats.propTypes = {
-    success: PropTypes.bool.isRequired,
-    secretWord: PropTypes.string.isRequired
+    success: PropTypes.bool.isRequired
 };
 
-const mapDispatchToProps = dispatch =>{
-    return{
-        clearGuesses: ()=> {
-            dispatch(clearGuesses());
-            dispatch(getSecretWord());
-        }
-    }
-}
-
-export default connect(null, mapDispatchToProps)(Congrats);
+export default Congrats;
