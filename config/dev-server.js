@@ -12,15 +12,15 @@ module.exports = {
   https: false,
   hot: true,
   historyApiFallback: true,
-  proxy: {
-    "/api": {
-      "changeOrigin": true,
-      "cookieDomainRewrite": "localhost",
-      "logLevel": "debug",
-      "target": "http://localhost:3000",
-      "secure": true,
-    }
-  }
+  // proxy: {
+  //   "/api": {
+  //     "changeOrigin": true,
+  //     "cookieDomainRewrite": "localhost",
+  //     "logLevel": "debug",
+  //     "target": "http://localhost:3000",
+  //     "secure": true,
+  //   }
+  // }
   // before: (app) => {
   //   app.get('/api', (req, res) => {
   //     res.send(products);

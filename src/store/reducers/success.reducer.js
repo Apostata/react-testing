@@ -10,6 +10,10 @@ export default (state=initialState, action) =>{
     switch(action.type){
         case actionTypes.CORRECT_GUESS:
             return true;
+            
+        case actionTypes.CLEAR_GUESSES:
+            return initialState;
+
         default:
             return state;
     }

@@ -83,7 +83,7 @@ describe('Input Component', ()=>{
     });
 
     describe('Actions calls and state changes', ()=>{
-        let guessWordMock, props;
+        let guessWordMock, props, wrapper;
         const guessedWord = 'train';
 
         beforeEach(()=>{
@@ -91,10 +91,10 @@ describe('Input Component', ()=>{
             props ={
                 guessWord : guessWordMock
             };
-            const wrapper = shallow(<UnconnectedInput {...props}/>);
+            wrapper = shallow(<UnconnectedInput {...props}/>);
             wrapper.setState({currentGuess: guessedWord});
 
-            findTestAttr(wrapper, 'submit-button').simulate('click', { preventDefault(){} });
+            findTestAttr(wrapper, 'guess-form').simulate('submit', { preventDefault(){} });
         });
 
 
@@ -106,6 +106,11 @@ describe('Input Component', ()=>{
         it('Should call guessWord action when submit button is with input value as argument', ()=>{
             const guessWordMockCalls = guessWordMock.mock.calls[0][0];
             expect(guessWordMockCalls).toBe(guessedWord);
+        });
+
+        it('Should clear input value when submit', ()=>{
+            const currentGuessState = wrapper.state('currentGuess');
+            expect(currentGuessState).toBe('');
         })
         
     })

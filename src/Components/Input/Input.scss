@@ -1,0 +1,11 @@
+@import '../../scss/newmorphic_component';
+
+.neu_container{
+    &.form_inline{
+        padding: .5rem;
+
+        .iverted{
+            padding: .5rem;
+        }
+    }
+}

@@ -20,7 +20,7 @@ describe('guessWord action dispatcher', () => {
                 success:false,
                 guessedWords:[
                     {
-                        guessWord: unsusuccessfulGuess,
+                        guessedWord: unsusuccessfulGuess,
                         letterMatchCount: 3
                     }
                 ]
@@ -28,7 +28,7 @@ describe('guessWord action dispatcher', () => {
             expect(newState).toEqual(expectedState)
         });
 
-        it('Should update state correct for unssuccessful guess', ()=>{
+        it('Should update state correct for successful guess', ()=>{
             store.dispatch(guessWord(secretWord));
             const newState = store.getState();
             const expectedState = {
@@ -36,7 +36,7 @@ describe('guessWord action dispatcher', () => {
                 success: true,
                 guessedWords:[
                     {
-                        guessWord: secretWord,
+                        guessedWord: secretWord,
                         letterMatchCount: 5
                     }
                 ]
@@ -48,7 +48,7 @@ describe('guessWord action dispatcher', () => {
 
     context('guessed words', ()=>{
         let store;
-        const guessedWords = [{ guessWord:"agile", letterMatchCount: 1 }]
+        const guessedWords = [{ guessedWord:"agile", letterMatchCount: 1 }]
         const initialState = { secretWord, guessedWords };
         beforeEach(() => {
             store = storeFactory(initialState);
@@ -63,7 +63,7 @@ describe('guessWord action dispatcher', () => {
                 guessedWords:[
                     ...guessedWords,
                     {
-                        guessWord: unsusuccessfulGuess,
+                        guessedWord: unsusuccessfulGuess,
                         letterMatchCount: 3
                     }
                 ]
@@ -80,7 +80,7 @@ describe('guessWord action dispatcher', () => {
                 guessedWords:[
                     ...guessedWords,
                     {
-                        guessWord: secretWord,
+                        guessedWord: secretWord,
                         letterMatchCount: 5
                     }
                 ]

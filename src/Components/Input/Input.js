@@ -1,7 +1,7 @@
 import React, { Component }from 'react';
 import { connect } from 'react-redux';
 import { guessWord } from '../../store/actions/guessWord.action';
-
+import Styles from './Input.scss';
 export class Input extends Component {
     state = {
         currentGuess: null
@@ -18,20 +18,30 @@ export class Input extends Component {
         const { guessWord } = this.props;
         e.preventDefault();
         if(currentGuess && currentGuess.length > 0) guessWord(currentGuess);
+        this.setState({
+            currentGuess: ''
+        });
     }
+
 
     render(){
         const { success } = this.props;
+        const {currentGuess} = this.state;
+
         let toRender = success ? null : 
-            <form className="form-inline" >
+            <form 
+                className={[Styles.neu_container, Styles.form_inline].join(" ")}
+                data-test="guess-form" onSubmit={(e)=>this.submitGuess(e)}
+                >
                 <input
                     type="text"
                     data-test="input-box" 
                     placeholder="Adivinhe a palavra certa"
-                    value={this.state.currentGuess}
+                    value={!currentGuess? '': currentGuess }
                     onChange={(e)=>this.changeIput(e)}
+                    className={[Styles.neu_container, Styles.iverted, Styles.ltt_margin].join(" ")}
                 />
-                <button type="submit" data-test="submit-button" onClick={(e)=>this.submitGuess(e)}>
+                <button type="submit" data-test="submit-button">
                     Enviar
                 </button>
             </form>;
@@ -47,9 +57,9 @@ export class Input extends Component {
 const mapStateToProps = ({ success }) =>{
     return { success };
 };
-const mapDispatchToProps = () =>{
+const mapDispatchToProps = dispatch =>{
     return {
-        guessWord: (word) => guessWord(word)
+        guessWord: (word) => dispatch(guessWord(word))
     };
 }
 

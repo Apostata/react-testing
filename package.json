@@ -12,7 +12,7 @@
     "start-class": "npm run set-class npm start",
     "test-class": "npm run set-class npm test",
     "test-hooks": "npm run set-hooks npm test",
-    "start-server": "./node_modules/.bin/nodemon ./node_modules/.bin/babel-node server/index.js",
+    "start-server": "./node_modules/.bin/babel-node server/index.js",
     "build-hooks": "npm run clear-public && npm run set-prod-hooks npm run build",
     "build-class": "npm run clear-public && npm run set-prod-class npm run build",
     "test": "jest --watch",

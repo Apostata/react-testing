@@ -9,7 +9,11 @@ const initialState = [];
 export default (state=initialState, action) =>{
     switch(action.type){
         case actionTypes.GUESS_WORD:
-            return [...state, action.payload]
+            return [...state, action.payload];
+
+        case actionTypes.CLEAR_GUESSES:
+            return initialState;
+            
         default :
             return state;
     }

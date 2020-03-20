@@ -26,7 +26,7 @@ describe('Secret word', ()=>{
             });
         });
 
-        const getSWord = await store.dispatch(getSecretWord());
+        await store.dispatch(getSecretWord());
         const newState = store.getState();
         expect(newState.secretWord).toBe(secretWord);
 
