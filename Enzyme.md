@@ -6,6 +6,8 @@ referência da docs: `https://airbnb.io/enzyme/docs/api/`;
 ##  Shallow
 Renderiza o componente, não renderizando os componentes filhos, apenas mostrando a tag deles.
 
+**Nota: não é possível testar os hooks, useEffect e useLayoutEffect. Neste casou use o Mount**
+
 Exemplo:
 
 ````

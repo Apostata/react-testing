@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import GuessedWords from '../GuessedWords/GuessedWords';
 
 export const Input = props =>{
     const [currentGuess, setCurrentGuess] = React.useState('');
@@ -9,6 +10,12 @@ export const Input = props =>{
             data-test="input-component"
             className="form-inline"
             placeholder="Adivinhe a palavra secreta!"
+            onSubmit={(e)=>{
+                e.preventDefault();
+                // TODO: update GuessedWords
+                // TODO: compara com a secretWord
+                setCurrentGuess('')
+            }}
         >
             <input 
                 type='text'

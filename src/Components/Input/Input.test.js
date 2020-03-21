@@ -31,6 +31,8 @@ describe('Input Component', ()=>{
         beforeEach(()=>{
             setCurrentGuessMock = jest.fn();
             React.useState = jest.fn(()=> ["", setCurrentGuessMock]);
+            // let initialState = "";
+            // React.useState = jest.fn().mockReturnValue([initialState, setCurrentGuessMock]);
             wrapper = setup(); //primeiro substitui a função para depois iniciar o componente
         });
         it('Should update currentGuess on input change', ()=>{
@@ -38,6 +40,16 @@ describe('Input Component', ()=>{
             const mockEvent = { target: { value:'train' } };
             inputField.simulate("change", mockEvent);
             expect(setCurrentGuessMock).toHaveBeenCalledWith('train');
+        });
+
+        it('Should reset currentGuess submit', ()=>{
+            const form = findTestAttr(wrapper, 'input-component');
+            const mockEvent = { 
+                target: { value:'' },
+                preventDefault : jest.fn()
+            };
+            form.simulate("submit", mockEvent);
+            expect(setCurrentGuessMock).toHaveBeenCalledWith('');
         });
     });
 })
