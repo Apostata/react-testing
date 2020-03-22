@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Styles from './GuessedWords.scss';
+import languageContext from '../../contexts/languageContext';
+import { getStringByLanguage } from '../../helpers/strings'
 
 export const GuessedWords = (props) => {
     const { guessedWords } = props;
+    const language = React.useContext(languageContext);
+
     const renderGuessedWord = (guessedWordsArr) =>{
         return guessedWordsArr.map((guessedWord, idx) => {
             return(
@@ -21,8 +25,8 @@ export const GuessedWords = (props) => {
                 <table data-test="guessed-words" className={[Styles.neu_container, Styles.ltt_padding, Styles.no_margin].join(" ")}>
                     <thead>
                         <tr>
-                            <td className={[Styles.ltt_margin].join(" ")}>Palavra</td>
-                            <td className={[Styles.ltt_margin].join(" ")}>Letras certas</td>
+                            <td className={[Styles.ltt_margin].join(" ")}>{getStringByLanguage(language, 'guessColumnHeader')}</td>
+                            <td className={[Styles.ltt_margin].join(" ")}>{getStringByLanguage(language,'matchingLettersColumnHeader')}</td>
                         </tr>
                     </thead>
                     <tbody >
@@ -30,7 +34,7 @@ export const GuessedWords = (props) => {
                     </tbody>
                 </table> :
                 <span data-test="guess-instructions">
-                    Tente adivinhar a palavra secreta!
+                    {getStringByLanguage(language, 'guessPrompt')}
                 </span>
             }
         </div>

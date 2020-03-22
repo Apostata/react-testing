@@ -27,7 +27,7 @@ describe('GuessedWords Component', () => {
         checkProp(GuessedWords, givenProps);
     });
 
-    context('if are guessed words', () => {
+    describe('if are guessed words', () => {
         let wrapper;
         const guessedWords = [
             { guessedWord : "train", letterMatchCount: 3 },
@@ -56,7 +56,7 @@ describe('GuessedWords Component', () => {
         });
     });
 
-    context('if are no guessed words', () => {
+    describe('if are no guessed words', () => {
         let wrapper;
 
         beforeEach(() => {
@@ -72,6 +72,21 @@ describe('GuessedWords Component', () => {
             const node = findTestAttr(wrapper, 'guess-instructions');
             expect(node.text().length).not.toBe(0);
         });
-    })
+    });
+
+    describe('Language context', ()=>{
+        it('Should render correct guess instructions in Brazilian portuguese by default', ()=>{
+            const wrapper = setup({guessedWords:[]});
+            const element = findTestAttr(wrapper, 'guess-instructions');
+            expect(element.text()).toBe('Tente acertar a palavra secreta!');
+        });
+        it('Should render correct guess instructions in emoji', ()=>{
+            const mockUseContext = jest.fn().mockReturnValue('emoji');
+            React.useContext = mockUseContext;
+            const wrapper = setup({guessedWords:[]});
+            const element = findTestAttr(wrapper, 'guess-instructions');
+            expect(element.text()).toBe('🤔🤫🔤');
+        });
+    });
     
 });
