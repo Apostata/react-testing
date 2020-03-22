@@ -1,8 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Styles from './Congrats.scss';
 
 import languageContext from '../../contexts/languageContext'
+import successContext from '../../contexts/successContext';
+
 import { getStringByLanguage } from '../../helpers/strings';
 /**
  * Functional component that returns congratulations message
@@ -12,8 +13,8 @@ import { getStringByLanguage } from '../../helpers/strings';
  */
 
 export const Congrats = (props) => {
-    const { success } = props;
     const language = React.useContext(languageContext);
+    const [success] = successContext.useSuccess();
     return(
         <div className={[Styles.neu_container,Styles.greenBG].join(" ")} data-test="congrats-component">
             { success ?
@@ -24,10 +25,6 @@ export const Congrats = (props) => {
             }
         </div>
     )
-};
-
-Congrats.propTypes = {
-    success: PropTypes.bool.isRequired
 };
 
 export default Congrats;
