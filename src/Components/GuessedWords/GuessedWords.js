@@ -11,9 +11,9 @@ export const GuessedWords = (props) => {
     const renderGuessedWord = (guessedWordsArr) =>{
         return guessedWordsArr.map((guessedWord, idx) => {
             return(
-                <tr key="idx" data-test="guessed-word">
+                <tr key={idx} data-test="guessed-word">
                     <td className={[Styles.neu_container, Styles.iverted, Styles.ltt_margin].join(" ")}>{guessedWord.guessedWord}</td>
-                    <td className={[Styles.neu_container, Styles.iverted, Styles.ltt_margin].join(" ")}>{guessedWord.letterMatchCount}</td>
+                    <td className={[Styles.neu_container, Styles.iverted, Styles.ltt_margin].join(" ")}>{guessedWord.lettersMatchCount}</td>
                 </tr>
             )
         })

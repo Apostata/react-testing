@@ -5,17 +5,17 @@ import Input from './Input';
 
 import languageContext from '../../contexts/languageContext'
 import successContext from '../../contexts/successContext';
+import guessedWordsContext from '../../contexts/guessedWordsContext';
 
-const contextValues = { secretWord: 'party', language:'pt_br', success:true };
-
-const setupMount = (contexts=contextValues) =>{
-    const setupContext = {...contextValues, ...contexts}
-    const {language, ...componentContext} = setupContext;
+const setupMount = (success=true, language='pt_br', secretWord = 'party', guessedWords=[]) =>{
+   // necessário passar os valores para os Contexts só para sobrescreve-los de acordo com os testes;
     const wrapper = mount(
-        <languageContext.Provider value={setupContext.language}>
-            <successContext.SuccessProvider value={[contexts.success, jest.fn()]}>
-                <Input {...componentContext}/>
-            </successContext.SuccessProvider>
+        <languageContext.Provider value={language}>
+            <guessedWordsContext.GuessedWordsProvider >
+                <successContext.SuccessProvider value={[success, jest.fn()]}>
+                    <Input secretWord={secretWord}/>
+                </successContext.SuccessProvider>
+            </guessedWordsContext.GuessedWordsProvider>
         </languageContext.Provider>
     );
     return wrapper;
@@ -25,7 +25,7 @@ describe('Input Component', ()=>{
    
     describe('Render', ()=>{
         it('Should render component without errors', ()=>{
-            const  wrapper = setupMount({success:false});
+            const  wrapper = setupMount(false);
             const element = findTestAttr(wrapper, 'input-component');
             expect(element.length).toBe(1);
         });
@@ -44,7 +44,7 @@ describe('Input Component', ()=>{
             React.useState = jest.fn(()=> ["", setCurrentGuessMock]);
             // let initialState = "";
             // React.useState = jest.fn().mockReturnValue([initialState, setCurrentGuessMock]);
-            wrapper = setupMount({success: false}); //primeiro substitui a função para depois iniciar o componente
+            wrapper = setupMount(false); //primeiro substitui a função para depois iniciar o componente
         });
         it('Should update currentGuess on input change', ()=>{
             const inputField = findTestAttr(wrapper, 'input-field');
@@ -66,25 +66,25 @@ describe('Input Component', ()=>{
 
     describe('language context', ()=>{      
         it('Should have the correct submit button text for Brazilian Portuguese', ()=>{
-            const wrapper = setupMount({success: false});
+            const wrapper = setupMount(false);
             const submitButton = findTestAttr(wrapper, 'input-submit');
             expect(submitButton.text()).toBe('Enviar');
         });
         
         it('Should have the correct input field placeholder for Brazilian Portuguese', ()=>{
-            const wrapper = setupMount({success: false});
+            const wrapper = setupMount(false);
             const submitButton = findTestAttr(wrapper, 'input-field');
             expect(submitButton.prop('placeholder')).toBe('tente uma palavra');
         });
 
         it('Should have the correct submit button text for emoji', ()=>{
-            const wrapper = setupMount({language:'emoji', success:false});
+            const wrapper = setupMount(false, 'emoji');
             const submitButton = findTestAttr(wrapper, 'input-submit');
             expect(submitButton.text()).toBe('🚀');
         });
         
         it('Should have the correct input field placeholder for emoji', ()=>{
-            const wrapper = setupMount({language:'emoji', success:false});
+            const wrapper = setupMount(false, 'emoji');
             const submitButton = findTestAttr(wrapper, 'input-field');
             expect(submitButton.prop('placeholder')).toBe('⌨️🤔');
         });
@@ -96,4 +96,4 @@ describe('Input Component', ()=>{
             expect(wrapper.isEmptyRender()).toBe(true);
         });
     })
-})
+});
