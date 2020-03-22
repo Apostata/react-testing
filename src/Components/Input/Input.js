@@ -2,20 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import languageContext from '../../contexts/languageContext';
 import { getStringByLanguage } from '../../helpers/strings';
-
+import successContext from '../../contexts/successContext';
 import Styles from './Input.scss';
 
 export const Input = props =>{
+    const {secretWord} = props; 
     const [currentGuess, setCurrentGuess] = React.useState('');
+    const [success, setSuccess] =  successContext.useSuccess();
     const language = React.useContext(languageContext);
+   
+    if(success) return null;
+
     return (
         <form 
             data-test="input-component"
             className={[Styles.neu_container, Styles.form_inline].join(" ")}
             onSubmit={(e)=>{
                 e.preventDefault();
-                // TODO: update GuessedWords
-                // TODO: compara com a secretWord
+                if(currentGuess === secretWord) setSuccess(true);
                 setCurrentGuess('')
             }}
         >
@@ -31,7 +35,7 @@ export const Input = props =>{
                 {getStringByLanguage(language, 'submit')}
             </button>
         </form>
-    )
+    );
 };
 
 Input.propTypes = {
