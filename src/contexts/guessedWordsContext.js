@@ -3,9 +3,9 @@ import React from 'react';
 const guessedWordsContext = React.createContext();
 
 const useGuessedWords = () =>{
-    const context = React.useContext();
+    const context = React.useContext(guessedWordsContext);
     if(!context) throw new Error('useSuccess must be used within a SuccessProvider!');
-    return contex;
+    return context;
 };
 
 const GuessedWordsProvider = props =>{

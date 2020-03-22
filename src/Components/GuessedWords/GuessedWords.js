@@ -1,12 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Styles from './GuessedWords.scss';
 import languageContext from '../../contexts/languageContext';
-import { getStringByLanguage } from '../../helpers/strings'
+import { getStringByLanguage } from '../../helpers/strings';
+import guessedWordsContext from '../../contexts/guessedWordsContext';
 
 export const GuessedWords = (props) => {
-    const { guessedWords } = props;
     const language = React.useContext(languageContext);
+    const [guessedWords] = guessedWordsContext.useGuessedWords();
 
     const renderGuessedWord = (guessedWordsArr) =>{
         return guessedWordsArr.map((guessedWord, idx) => {
@@ -39,15 +39,6 @@ export const GuessedWords = (props) => {
             }
         </div>
     );
-};
-
-GuessedWords.propTypes = {
-    guessedWords: PropTypes.arrayOf(
-        PropTypes.shape({
-            guessedWord: PropTypes.string.isRequired,
-            letterMatchCount: PropTypes.number.isRequired
-        })
-    ).isRequired,
 };
 
 export default GuessedWords;

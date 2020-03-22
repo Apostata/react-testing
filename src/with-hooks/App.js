@@ -9,6 +9,7 @@ import LanguagePicker from '../Components/LanguagePicker/LanguagePicker';
 
 import languageContext from '../contexts/languageContext';
 import successContext from '../contexts/successContext';
+import guessedWordsContext from '../contexts/guessedWordsContext'
 
 /**
  * @function reducer - to return the updated state based on action
@@ -53,11 +54,13 @@ export const App  = props =>{
     <languageContext.Provider value={state.language}>
       <h1 className={Styles.neu_title}>Jotto</h1>
       <LanguagePicker setLanguage={setLanguage}/>
-      <successContext.SuccessProvider>
-        <Congrats/>
-        <Input secretWord={state.secretWord}/>
-        <GuessedWords guessedWords={[{ guessedWord : "train", letterMatchCount: 3 }]}/>
-      </successContext.SuccessProvider>
+      <guessedWordsContext.GuessedWordsProvider>
+        <successContext.SuccessProvider>
+          <Congrats/>
+          <Input secretWord={state.secretWord}/>
+          <GuessedWords />
+        </successContext.SuccessProvider>
+      </guessedWordsContext.GuessedWordsProvider>
     </languageContext.Provider>
   </div>
 
